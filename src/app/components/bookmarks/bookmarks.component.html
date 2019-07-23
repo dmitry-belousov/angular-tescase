@@ -1,0 +1,12 @@
+<div class="container" #litsContainer>
+  <div class="row title align-items-center">
+    <h1>Saved Repos</h1>
+  </div>
+  <div class="row">
+    <div [id]="tile.name" class="tile-wrapper col-sm-12 col-md-6 col-lg-4" *ngFor="let tile of list">
+      <app-tile [tile]="tile" [routerLink]="['/projects', tile.name]">
+        <a href="" (click)="performAction($event, tile)">Remove</a>
+      </app-tile>
+    </div>
+  </div>
+</div>

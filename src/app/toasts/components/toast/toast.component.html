@@ -1,0 +1,11 @@
+<div class="ngb-toasts">
+  <ngb-toast
+    *ngFor="let toast of toastService.toasts"
+    [class]="toast.type"
+    [autohide]="true"
+    [delay]="toast.delay || 5000"
+    (hide)="toastService.remove(toast)"
+  >
+    <span [innerText]="toast.text"></span>
+  </ngb-toast>
+</div>

@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark bg-primary fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="">Explorer</a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="projects" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Trending</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="bookmarks" routerLinkActive="active">
+            Saved
+            <app-bookmark-counter></app-bookmark-counter>
+          </a>
+        </li>
+      </ul>
+  </div>
+</nav>

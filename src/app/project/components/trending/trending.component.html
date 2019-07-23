@@ -1,0 +1,13 @@
+<div class="container" #litsContainer>
+  <div class="row title align-items-center">
+    <h1>Trendings</h1>
+  </div>
+  <div *ngIf="listRepos.length; else loader" class="row">
+    <div [id]="tile.name" class="tile-wrapper col-sm-12 col-md-6 col-lg-4" *ngFor="let tile of listRepos">
+      <app-tile [tile]="tile" [routerLink]="['/projects', tile.name]"></app-tile>
+    </div>
+  </div>
+</div>
+<ng-template #loader>
+  <app-preloader></app-preloader>
+</ng-template>

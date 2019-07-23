@@ -1,0 +1,31 @@
+:host(app-tile){
+  width: 100%;
+  .card {
+    height: 100%;
+    padding: 5%;
+    .card-title {
+      margin: 0;
+      .title {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+      }
+    }
+    .card-body {
+      padding: 5% 0%;
+      color: #6C757D;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19px;
+    }
+    .badge {
+      color: #ffffff;
+      line-height: unset;
+    }
+  }
+}

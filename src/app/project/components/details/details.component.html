@@ -1,0 +1,31 @@
+<div *ngIf="item; else loader" class="card">
+  <div class="card-footer row">
+    <div class="col-2 d-flex justify-content-center">
+      <i class="fa fa-chevron-left fa-2x" (click)="back()"></i>
+    </div>
+    <div class="col-10">
+      <div class="row">
+        <h4 [innerText]="item.name"></h4>
+      </div>
+      <div class="row description">
+          <span [innerText]="item.description"></span>
+      </div>
+      <div class="row mt-2">
+        <span class="pr-5" [innerHTML]="item.stars | star"></span>
+        <span class="badge badge-light" [ngStyle]="{'background-color': item.languageColor}" [innerText]="item.language"></span>
+      </div>
+      <div class="row mt-3 mb-3">
+        <button class="btn btn-primary" (click)="performAction()">
+          {{ existInBookmarks ? 'Remove' : 'Save Repository' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <h4>Built By</h4>
+    <app-user *ngFor="let user of item.builtBy" [user]="user"></app-user>
+  </div>
+</div>
+<ng-template #loader>
+  <app-preloader></app-preloader>
+</ng-template>

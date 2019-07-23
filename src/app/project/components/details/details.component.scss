@@ -1,0 +1,26 @@
+:host(app-details) {
+  .card {
+    width: 100%;
+    border: none;
+    .card-footer {
+      min-width: 40vh;
+      .description {
+        padding: 5% 0%;
+        color: #6C757D;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+      }
+      .badge {
+        color: #ffffff;
+        line-height: unset !important;
+      }
+    }
+    h4 {
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+  }
+}

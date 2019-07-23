@@ -1,0 +1,13 @@
+<div class="card container">
+  <div class="card-title row justify-content-between">
+    <span class="title" [innerText]="tile.name"></span>
+    <span [innerHTML]="tile.stars | star"></span>
+  </div>
+  <div class="card-body">
+      <span [innerText]="tile.description"></span>
+  </div>
+  <div class="d-flex justify-content-between">
+    <span class="badge badge-light" [ngStyle]="{'background-color': tile.languageColor}" [innerText]="tile.language"></span>
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<img [src]="user.avatar">
+<div class="info">
+  <span [innerText]="user.username"></span>
+  <span *ngIf="userMeta | async as userData">{{userData.followers}} Followers</span>
+</div>
