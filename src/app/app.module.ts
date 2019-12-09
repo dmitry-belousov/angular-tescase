@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './components/main/main.component';
 import { BookmarkCounterComponent } from './components/bookmark-counter/bookmark-counter.component';
 import { ToastsModule } from './toasts/toasts.module';
+import { RegisterComponent } from './components/register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { ToastsModule } from './toasts/toasts.module';
     BookmarksComponent,
     MainComponent,
     BookmarkCounterComponent,
+    RegisterComponent
   ],
   imports: [
     SharedModule,
@@ -31,6 +34,7 @@ import { ToastsModule } from './toasts/toasts.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
