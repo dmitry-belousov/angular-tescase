@@ -1,0 +1,26 @@
+.auth-form {
+  width: 100%;
+  text-align: center;
+  margin-top: 200px;
+  .auth-field {
+    margin: 5px auto;
+    max-width: 300px;
+    display: flex;
+    // flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    label {
+      margin: 0;
+    }
+  }
+  .button {
+    margin-top: 20px;
+    color: #fff;
+    border: none;
+    line-height: 2.5;
+    padding: 0 20px;
+  }
+  .grey{
+      color: gray
+  }
+}

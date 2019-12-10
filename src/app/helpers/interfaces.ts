@@ -5,6 +5,7 @@ export interface IRepoUser {
 }
 
 export interface IRepo {
+  id: number;
   author: string;
   name: string;
   avatar: string;
@@ -15,9 +16,16 @@ export interface IRepo {
   stars: number;
   forks: number;
   currentPeriodStars: number;
-  builtBy: Array<IUser>;
+  builtBy:any;
 }
 
 export interface IUser {
   followers: number;
+}
+
+export interface AuthUser {
+  login: string;
+  password: string;
+  id?: number | string;
+  token?: string;
 }

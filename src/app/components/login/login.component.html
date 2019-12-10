@@ -3,7 +3,10 @@
   [formGroup]="checkoutForm"
   (ngSubmit)="onSubmit(checkoutForm.value)"
 >
-  <p class="auth-title">Registration</p>
+  <p class="auth-title">Login</p>
+  <p class="grey">
+    <small>{{ redirectMessage }}</small>
+  </p>
   <div class="auth-field">
     <label for="login">
       Login

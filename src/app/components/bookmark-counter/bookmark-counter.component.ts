@@ -13,7 +13,9 @@ export class BookmarkCounterComponent implements OnInit {
 
   ngOnInit() {
     this.bookmarkService.bookmarksSubject.asObservable().subscribe((items: Array<IRepo>) => {
+      console.log(items);
       this.bookmarksCount = items.length;
+      console.log(this.bookmarksCount);
     });
   }
 }
