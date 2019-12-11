@@ -3,6 +3,7 @@ import { BehaviorSubject } from "rxjs";
 import { IRepo } from "../helpers/interfaces";
 import { uniqBy } from "../helpers/functions";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AuthService } from './auth.services';
 
 // const headers = {
 //   headers: new HttpHeaders({
@@ -27,7 +28,7 @@ export class BookmarksService {
       })
     };
   }
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private authService: AuthService) {
     // const values: string | null = localStorage.getItem('bookmarks');
     // values
     //   ? this.bookmarksSubject.next(JSON.parse(values))
@@ -36,6 +37,7 @@ export class BookmarksService {
   }
 
   getBookmarks() {
+    if(!this.authService.getIsAuth()) return;
     this.httpClient
       .get<Array<IRepo>>("http://localhost:8080/projects", {
         ...this.getHeaders()
@@ -52,10 +54,11 @@ export class BookmarksService {
     // this.bookmarksSubject.next(values);
     // localStorage.setItem('bookmarks', JSON.stringify(values));
     console.log(item);
+    if(!this.authService.getIsAuth()) return;
     return this.httpClient
       .post<IRepo>(
         "http://localhost:8080/projects/add",
-        { ...item, builtBy: JSON.stringify(item.builtBy) },
+        { name: item.name, author: item.author },
         { ...this.getHeaders() }
       )
       .toPromise()
@@ -73,6 +76,7 @@ export class BookmarksService {
     // this.bookmarksSubject.next(values);
     // localStorage.setItem('bookmarks', JSON.stringify(values));
     console.log(item);
+    if(!this.authService.getIsAuth()) return;
     return this.httpClient
       .delete(`http://localhost:8080/projects/delete/${item.id}`, {
         ...this.getHeaders()

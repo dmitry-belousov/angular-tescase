@@ -38,7 +38,7 @@ import { LoginComponent } from './components/login/login.component';
     ToastsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [HeaderComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

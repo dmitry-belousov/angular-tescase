@@ -3,6 +3,7 @@ import { FormBuilder } from "@angular/forms";
 import { AuthService } from "src/app/services/auth.services";
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { BookmarksService } from 'src/app/services/bookmarks.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: "app-login",
