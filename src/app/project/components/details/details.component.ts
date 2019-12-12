@@ -26,7 +26,8 @@ export class DetailsComponent implements OnInit {
     private router: Router,
     private bookmarkService: BookmarksService,
     private toastService: ToastService,
-    private routing: AppRoutingModule,
+    // private routing: AppRoutingModule,
+    
   ) {}
 
   ngOnInit() {
@@ -37,7 +38,7 @@ export class DetailsComponent implements OnInit {
       let filterList = list.map(elem => {
         let bookmarkItem = bookmarks.find(it => it.name === elem.name);
         if (bookmarkItem) {
-          elem = { ...bookmarkItem };
+          elem = { ...bookmarkItem, ...elem };
         }
         return elem;
       });
@@ -50,9 +51,6 @@ export class DetailsComponent implements OnInit {
           { type: ToastTypes.DANGER }
         );
       }
-      // let builtBy = JSON.parse(this.item.builtBy);
-      this.item = { ...this.item, builtBy: JSON.parse(this.item.builtBy) };
-      console.log(this.item, bookmarks);
       this.existInBookmarks = bookmarks.some(
         ({ name }) => name === this.item.name
       );
@@ -66,19 +64,21 @@ export class DetailsComponent implements OnInit {
   }
 
   performAction() {
-    console.log(this.existInBookmarks, this.item);
+    console.log(this.bookmarkService.removeFromBookmarks(this.item).then(() => console.log('iiii')))
     if (this.existInBookmarks) {
-      this.bookmarkService.removeFromBookmarks(this.item).then(() => {
+      if(this.bookmarkService.removeFromBookmarks(this.item)){
         this.existInBookmarks = !this.existInBookmarks;
-      }).catch(() => {
-        this.routing.redirectToLogin("Please, enter to continue");
-      });
+      } else {
+        // this.routing.redirectToLogin("Please, enter to continue");
+        this.router.navigate(["login"])
+      }
     } else {
-      this.bookmarkService.addToBookmarks(this.item).then(() => {
+      if(this.bookmarkService.addToBookmarks(this.item)){
         this.existInBookmarks = !this.existInBookmarks;
-      }).catch(() => {
-        this.routing.redirectToLogin("Please, enter to continue");
-      });
+      } else {
+        // this.routing.redirectToLogin("Please, enter to continue");
+        this.router.navigate(["login"])
+      }
     }
   }
 }

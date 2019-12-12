@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { AuthService } from "src/app/services/auth.services";
 import { AppRoutingModule } from "src/app/app-routing.module";
-import { BookmarksService } from 'src/app/services/bookmarks.service';
-import { HeaderComponent } from '../header/header.component';
+import { BookmarksService } from "src/app/services/bookmarks.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-login",
@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public authService: AuthService,
-    private route: AppRoutingModule,
     private bookmarks: BookmarksService,
+    private router: Router
   ) {
     this.checkoutForm = this.formBuilder.group({
       login: "",
@@ -26,15 +26,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(customerData) {
-    // Process checkout data here
-    console.warn("Your order has been submitted", customerData);
     this.authService
       .login(customerData)
       .then(() => {
-        this.route.redirectToProjects();
+        this.router.navigate(["projects"]);
         this.checkoutForm.reset();
         this.redirectMessage = "";
         this.bookmarks.getBookmarks();
+        
       })
       .catch(e => {
         console.log(e);
@@ -43,7 +42,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.route.getRedirectMessage());
-    this.redirectMessage = this.route.getRedirectMessage();
+    this.redirectMessage = "Login to continue";
   }
 }

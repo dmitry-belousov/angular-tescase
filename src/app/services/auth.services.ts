@@ -7,27 +7,25 @@ import { HttpClient } from "@angular/common/http";
 })
 export class AuthService {
   isAuth;
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+  ) {
     this.isAuth = !!localStorage.getItem("token");
   }
   register({ login, password }: AuthUser) {
-    console.log({ login, password });
     return this.httpClient
       .post<AuthUser>("http://localhost:8080/register", { login, password })
       .toPromise()
       .then(res => {
-        console.log(res);
         this.isAuth = false;
       });
   }
 
   login({ login, password }: AuthUser) {
-    console.log({ login, password });
     return this.httpClient
       .post<AuthUser>("http://localhost:8080/login", { login, password })
       .toPromise()
       .then(res => {
-        console.log(res);
         this.isAuth = true;
         localStorage.setItem("token", res.token);
       });
