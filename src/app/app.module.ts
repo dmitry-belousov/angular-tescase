@@ -39,13 +39,7 @@ import { httpInterceptorProviders } from "./app-interceptors";
     ToastsModule,
     ReactiveFormsModule
   ],
-  providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: httpInterceptorProviders,
-    //   multi: true
-    // }
-  ],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

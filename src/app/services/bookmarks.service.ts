@@ -4,8 +4,9 @@ import { IRepo } from "../helpers/interfaces";
 import { uniqBy } from "../helpers/functions";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthService } from './auth.services';
-import { AppRoutingModule } from '../app-routing.module';
 import { Router } from '@angular/router';
+
+const baseUrl = "http://localhost:8080/";
 
 @Injectable({
   providedIn: "root"
@@ -14,15 +15,7 @@ export class BookmarksService {
   public bookmarksSubject: BehaviorSubject<Array<IRepo>> = new BehaviorSubject<
     Array<IRepo>
   >([]);
-
-  getHeaders() {
-    return {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      })
-    };
-  }
+  
   constructor(private httpClient: HttpClient, private authService: AuthService, private router: Router) {
     this.getBookmarks();
   }
@@ -31,9 +24,7 @@ export class BookmarksService {
   getBookmarks() {
     if(!this.authService.getIsAuth()) return;
     this.httpClient
-      .get<Array<IRepo>>("http://localhost:8080/projects", {
-        ...this.getHeaders()
-      })
+      .get<Array<IRepo>>(`${baseUrl}projects`)
       .toPromise()
       .then(res => {
         this.bookmarksSubject.next(res);
@@ -44,9 +35,8 @@ export class BookmarksService {
     if(!this.authService.getIsAuth()) return;
     return this.httpClient
       .post<IRepo>(
-        "http://localhost:8080/projects",
-        { name: item.name, author: item.author },
-        { ...this.getHeaders() }
+        `${baseUrl}projects`,
+        { name: item.name, author: item.author }
       )
       .toPromise()
       .then(res => {
@@ -61,9 +51,7 @@ export class BookmarksService {
   removeFromBookmarks(item: IRepo) {
     if(!this.authService.getIsAuth()) return;
     return this.httpClient
-      .delete(`http://localhost:8080/projects/${item.id}`, {
-        ...this.getHeaders()
-      })
+      .delete(`${baseUrl}projects/${item.id}`)
       .toPromise()
       .then(res => {
         const values = this.bookmarksSubject.value.filter(
