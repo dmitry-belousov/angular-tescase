@@ -64,7 +64,7 @@ export class DetailsComponent implements OnInit {
   }
 
   performAction() {
-    console.log(this.bookmarkService.removeFromBookmarks(this.item).then(() => console.log('iiii')))
+    // console.log(this.bookmarkService.removeFromBookmarks(this.item).then(() => console.log('iiii')))
     if (this.existInBookmarks) {
       if(this.bookmarkService.removeFromBookmarks(this.item)){
         this.existInBookmarks = !this.existInBookmarks;

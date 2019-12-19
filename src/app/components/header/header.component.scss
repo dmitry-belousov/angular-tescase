@@ -3,6 +3,9 @@
     flex-direction: row;
     .nav-item {
       margin: 0 15px 0 0;
+      &.hide{
+        display: none;
+      }
     }
   }
 }

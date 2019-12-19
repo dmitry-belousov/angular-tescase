@@ -15,12 +15,18 @@
 //   }
 // }
 
- 
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HttpErrorResponse
+} from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { retry, catchError } from "rxjs/operators";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 /**
  * JWT Interceptor перехватывает http-запросы от приложения,
  * чтобы добавить токен JWT-аутентификации в заголовок авторизации,
@@ -31,20 +37,36 @@ import { Observable } from 'rxjs';
  * Перехватчики Http добавляются в конвейер запросов в разделе провайдеров файла app.module.ts.
  */
 export class JwtInterceptor implements HttpInterceptor {
-    constructor() { }
+  constructor() {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // add authorization header with jwt token if available
-        const token = localStorage.getItem("token");
-        console.log(token);
-        if (token) {
-            request = request.clone({
-                setHeaders: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        } 
-
-        return next.handle(request);
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    // add authorization header with jwt token if available
+    const token = localStorage.getItem("token");
+    console.log(token);
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
     }
+
+    console.log(request);
+
+    return next.handle(request).pipe(
+      retry(2),
+      catchError((error) => {
+          console.log(error);
+        if (error.status === 401) {
+          // 401 handled in auth.interceptor
+          // this.toastr.error(error.message);
+          console.log("aaaaaaaa");
+        }
+        return throwError(error);
+      })
+    );
+  }
 }

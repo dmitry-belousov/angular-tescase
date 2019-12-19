@@ -9,8 +9,8 @@ import { BookmarksService } from 'src/app/services/bookmarks.service';
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private authService: AuthService,
-    public bookmarkService: BookmarksService
+    public authService: AuthService,
+    public bookmarkService: BookmarksService,
   ){}
 
   logout(e) {
@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
       this.authService.logout();
     }
   }
+
+
 
   ngOnInit() {}
 }
